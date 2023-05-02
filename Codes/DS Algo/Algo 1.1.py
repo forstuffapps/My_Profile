@@ -182,17 +182,16 @@ SI Prac : Compute a power b , Page-3 : 3,
 APT : Day-3,
 '''
 
-g=1000000007
-n=lambda:map(int,input().split())
-t=[*n(),][0]
-while t>0:
-    a,b=[*n(),]
+def a_power_b(a,b):
+    g=10**9+7
     x=a
-    ans=1
-    while(b!=0):
+    z=1
+    
+    while b:
         if b&1:
-            ans=(ans*x)%g
+            z=(z*x)%g
+        
         x=(x*x)%g
-        b=b>>1
-    print(ans%g)
-    t-=1
+        b>>=1
+    
+    return z
