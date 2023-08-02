@@ -182,19 +182,20 @@ SI Prac : Compute a power b , Page-3 : 3,
 APT : Day-3,
 '''
 
-def a_power_b(a,b):
-    g=10**9+7
+g=1000000007
+n=lambda:map(int,input().split())
+t=[*n(),][0]
+while t>0:
+    a,b=[*n(),]
     x=a
-    z=1
-    
-    while b:
+    ans=1
+    while(b!=0):
         if b&1:
-            z=(z*x)%g
-        
+            ans=(ans*x)%g
         x=(x*x)%g
-        b>>=1
-    
-    return z
+        b=b>>1
+    print(ans%g)
+    t-=1
 
 
 
@@ -218,3 +219,58 @@ def sun_of_xor_of_pairs(l):
         z+=c*(n-c)*2**b
     
     return (2*z)
+
+
+def GCD(a,b):
+    while b:
+        a,b=b,a%b
+    return a
+
+
+
+
+'''
+Collecting Water (or) Builiding water
+SI Prac : Page-10 : 10
+'''
+
+def collecting_water(l):
+    n=len(l)
+    ML=[l[0]]
+    for i in range(1,n):
+        ML.append(max(ML[-1],l[i]))
+    MR=[0]*n
+    MR[-1]=l[-1]
+    for i in range(n-2,-1,-1):
+        MR[i] = max(MR[i+1],l[i])
+    
+    z=0
+    for i in range(1,n-1):
+        z+=min(ML[i],MR[i])-l[i]
+    
+    return z
+
+
+
+
+
+'''
+Tower of Hanoi
+All sorting Algos[SS, IS, BS, MS, HS]
+Merge sort
+Merge A into B
+2 pointer
+Binary Search
+Floor and Ciel of Binary Search
+Max subarray SUM
+Max non decreasing subarray
+Max subarray that is contigious after rearranging w & wt (with & without) duplicates
+Distinct elements in a window
+Palindrome w & wt DP
+Max subarray containing equal no of 0's and 1's
+Given rotated array find K
+K-rotated array convert to reg array
+
+
+
+'''
