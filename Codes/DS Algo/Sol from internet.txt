@@ -1,0 +1,205 @@
+
+
+
+#--- Longest common Subsequence
+
+Approach 1 : Recursion [Time Limit Exceeded]
+
+public class Solution {
+    public int solve(String A, String B) {
+        // Very Easy Solution - I must say Damn Easy
+        // Here we are simply implementing the choice diagram
+        // We are just matching the character from the back
+        int n = A.length()-1; 
+        int m = B.length()-1;
+        return lcs(A , B , n , m);
+    }
+    
+    public int lcs(String text1 , String text2 , int n , int m){
+        
+        // Base case : Simply Check if any of the string is empty or not, if it is simply return 0
+        // As we can't find any subsequence from any of the empty string
+        if(n == -1 || m == -1){
+            return 0;
+        } 
+        // Now, lets say if the last character from both the strings are equal.
+        // Simply iterate towards the remainder of both the strings and add it to 1.
+        // As this character will be definetly counts in our answer.
+        else if(text1.charAt(n) == text2.charAt(m)){
+            return 1 + lcs(text1 , text2 , n-1 , m-1);
+        }
+        // If both the last characters are not equal.
+        // We have 2 choices either to pick the last element from the first String or the second String
+        // And return max of it. And That's all - BINGO  !!
+        else{
+            return Math.max(lcs(text1 , text2 , n-1 , m), lcs(text1 , text2 , n , m-1));
+        }
+    }
+    
+}
+
+
+
+Approach 2 : Recursion + Memoization [Top-Down]
+
+public class Solution {
+    public int solve(String A, String B) {
+        // Very Easy Solution - I must say Damn Easy
+        // Exactly similar to above recursive approach just we are storing values in DP Table
+        // Here we are simply implementing the choice diagram
+        // We are just matching the character from the back
+        int n = A.length(); 
+        int m = B.length();
+        int dp[][] = new int[n+1][m+1];
+        for(int i=0 ; i<dp.length ; i++){
+            for(int j=0 ; j<dp[0].length ; j++){
+                dp[i][j] = -1;
+            }
+        }
+        return lcs(A , B , n , m, dp);
+    }
+    
+    public int lcs(String text1 , String text2 , int n , int m, int dp[][]){
+        
+        // Base case : Simply Check if any of the string is empty or not, if it is simply return 0
+        // As we can't find any subsequence from any of the empty string
+        if(n == 0 || m == 0){
+            return 0;
+        } 
+        // Check in DP Storage if the value is already present
+        if(dp[n][m] != -1){
+            return dp[n][m];
+        }
+        // Now, Same as the recursive approach
+        // Just that we are storing in DP Table
+        if(text1.charAt(n-1) == text2.charAt(m-1)){
+            dp[n][m] = 1 + lcs(text1 , text2, n-1 , m-1 , dp);
+        }
+        // If both the last characters are not equal.
+        // We have 2 choices either to pick the last element from the first String or the second String
+        // And return max of it. And That's all - BINGO  !!
+        else{
+            dp[n][m] = Math.max(lcs(text1 , text2, n-1 , m , dp), lcs(text1 , text2, n , m-1 , dp));
+        }
+        return dp[n][m];
+    }
+}
+
+
+Approach 3 : Tabulation [Bottom-Up]
+
+public class Solution {
+    public int solve(String A, String B) {
+        // Hell Easy
+        // Always note that in Tabular approach
+        // The Base case of recursive solution will turn into initialization of DP Table
+        int n = A.length(); 
+        int m = B.length();
+        int dp[][] = new int[n+1][m+1];
+        for(int i=0 ; i<dp.length ; i++){
+            for(int j=0 ; j<dp[0].length ; j++){
+                if(i == 0 || j == 0){
+                    dp[i][j] = 0;
+                }
+            }
+        }
+        // Rest all is same
+        for(int i=1 ; i<dp.length ; i++){
+            for(int j=1 ; j<dp[0].length ; j++){
+                // If the characters are same we will move to the next characters
+                if(A.charAt(i-1) == B.charAt(j-1)){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }  
+                // Else we will have two choices either to take or not
+                // And at last we have to return Max of both
+                else{
+                    dp[i][j] = Math.max(dp[i-1][j] , dp[i][j-1]);
+                }
+            }
+        }
+        return dp[n][m];
+    }
+}
+
+
+
+
+What if we have to print the LCS itself instead of the length of LCS ?
+
+public class Solution {
+	public String solve(String A, String B) {
+        // Hell Easy
+        // Always note that in Tabular approach
+        // The Base case of recursive solution will turn into initialization of DP Table
+        int n = A.length(); 
+        int m = B.length();
+		// We have to print the LCS so we will use DP Table of String
+        String dp[][] = new String[n+1][m+1];
+        for(int i=0 ; i<dp.length ; i++){
+            for(int j=0 ; j<dp[0].length ; j++){
+                if(i == 0 || j == 0){
+                    dp[i][j] = "";
+                }
+            }
+        }
+        // Rest all is same
+        for(int i=1 ; i<dp.length ; i++){
+            for(int j=1 ; j<dp[0].length ; j++){
+                // If the characters are same we will move to the next characters
+                if(A.charAt(i-1) == B.charAt(j-1)){
+                    dp[i][j] = dp[i-1][j-1] + String.valueOf(A.charAt(i-1));
+                }  
+                // Else we will have two choices either to take or not
+                // And at last we have to return Max of both
+                else{
+                    int len1 = dp[i-1][j].length();
+                    int len2 = dp[i][j-1].length();
+
+                    dp[i][j] = len1 > len2 ? dp[i-1][j] : dp[i][j-1];
+                }
+            }
+        }
+        return dp[n][m];
+    }
+}
+
+
+
+
+INTERESTING QUESTION : How to find LCS of 3 Strings ?
+
+class Solution 
+{ 
+    int LCSof3(String A, String B, String C, int n1, int n2, int n3) 
+    { 
+        int dp[][][] = new int[n1+1][n2+1][n3+1];
+        for(int i=0 ; i<n1+1 ; i++){
+            for(int j=0 ; j<n2+1 ; j++){
+                for(int k=0 ; k<n3+1 ; k++){
+                    if( i==0 || j==0 || k==0 ){
+                        dp[i][j][k] = 0;
+                    }
+                }
+            }
+        }
+        for(int i=1 ; i<n1+1 ; i++){
+            for(int j=1 ; j<n2+1 ; j++){
+                for(int k=1 ; k<n3+1 ; k++){
+                    if((A.charAt(i-1) == B.charAt(j-1)) && (B.charAt(j-1) == C.charAt(k-1))){
+                        dp[i][j][k] = 1 + dp[i-1][j-1][k-1];
+                    }
+                    else{
+                        dp[i][j][k] = Math.max(dp[i-1][j][k] , Math.max(dp[i][j-1][k] , dp[i][j][k-1]));
+                    }
+                }
+            }
+        }
+        return dp[n1][n2][n3];
+    }
+} 
+
+
+
+
+
+
