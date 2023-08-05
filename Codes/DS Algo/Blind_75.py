@@ -127,7 +127,7 @@ def longestCommonSubsequence(text1, text2):
 def longestCommonSubsequence(text1, text2):
     n,m=len(text1), len(text2)
     A,B = text1, text2
-    dp=[[0]*(m+1)]*(n+1)
+    dp=[[0]*(m+1) for i in range(n+1)]
     @lru_cache(maxsize=None)
     def z(A,B, n, m):
 
@@ -140,3 +140,127 @@ def longestCommonSubsequence(text1, text2):
         
         return dp[n][m]
     return z(A,B,n,m)
+
+
+
+#  Tabulation : Bottom Up
+def longestCommonSubsequence(text1, text2):
+    n,m=len(text1), len(text2)
+    A,B = text1, text2
+    dp=[[0]*(m+1) for i in range(n+1)]
+    @lru_cache(maxsize=None)
+    def z(A,B, n, m):
+
+        if n==0 or m==0:
+            return 0
+        if A[n-1]==B[m-1]:
+            dp[n][m] = 1+z(A,B,n-1,m-1)
+        else:
+            dp[n][m] = max(z(A,B,n-1,m), z(A,B,n,m-1))
+        
+        return dp[n][m]
+    return z(A,B,n,m)
+
+
+
+
+"""
+4. Word Break Problem  (LC number - 139)
+"""
+
+def wordBreak( s, wordDict):
+    n=len(s)
+    dp=[0]*n
+
+    for i in range(n):
+        for j in range(i-1,-1,-1):
+            if dp[j]!=0 and s[j+1:i+1] in wordDict:
+                dp[i]+=1
+        else:
+            if s[:i+1] in wordDict:
+                dp[i]+=1
+    
+    return dp[-1]!=0
+
+
+
+# Another solution handling the special case
+def wordBreak(s, wordDict):
+        n=len(s)
+        dp=[0]*(n+1)
+        dp[0]=1
+        for i in range(1,n+1):
+            for j in range(1,i+1):
+                if dp[j-1]!=0 and s[j-1:i] in wordDict:
+                    dp[i]+=1
+                    
+        return dp[-1]!=0
+
+
+
+
+
+
+
+"""
+5. Combination Sum IV  (LC number - 377)
+"""
+
+
+def combinationSum4(nums, target):
+    n=len(nums)
+    dp = [0]*(target+1)
+    dp[0] = 1
+    for i in range(1,target+1):
+        for j in range(n):
+            if (i-nums[j])>=0:
+                dp[i]+=dp[i-nums[j]]
+            
+    return dp[-1]
+
+
+
+
+
+"""
+5. House Robber  (LC number - 198)
+"""
+
+def rob(nums):
+        if len(nums)==1:
+            return nums[-1]
+        n=len(nums)
+        m = max(nums[:2])
+        c2=nums[0]
+        c1 = m
+        for i in range(2,n):
+            m=max(c1,c2+nums[i])
+            c2,c1 = c1,m
+        
+        return m
+
+
+
+
+
+"""
+5. House Robber 2  (LC number - 213)
+they are in circle
+"""
+def rob(self, nums: List[int]) -> int:
+        if len(nums)<3:
+            return max(nums)
+        n=len(nums)
+        def z(nums):
+            if len(nums)<3:
+                return max(nums)
+            
+            c2,c1 = nums[0], max(nums[:2])
+            n=len(nums)
+            for i in range(2,n):
+                m=max(c1, c2+nums[i])
+                c2,c1 = c1,m
+            
+            return m
+        
+        return max(z(nums[0:n-1]), z(nums[1:]))
