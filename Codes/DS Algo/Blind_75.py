@@ -144,19 +144,20 @@ def longestCommonSubsequence(text1, text2):
 
 
 #  Tabulation : Bottom Up
-def longestCommonSubsequence(text1, text2):
+def longestCommonSubsequence(self, text1: str, text2: str) -> int:
     n,m=len(text1), len(text2)
     A,B = text1, text2
     dp=[[0]*(m+1) for i in range(n+1)]
     @lru_cache(maxsize=None)
     def z(A,B, n, m):
 
-        if n==0 or m==0:
-            return 0
-        if A[n-1]==B[m-1]:
-            dp[n][m] = 1+z(A,B,n-1,m-1)
-        else:
-            dp[n][m] = max(z(A,B,n-1,m), z(A,B,n,m-1))
+        for i in range(1,n+1):
+            for j in range(1,m+1):
+
+                if A[i-1]==B[j-1]:
+                    dp[i][j] = 1+dp[i-1][j-1]
+                else:
+                    dp[i][j] = max(dp[i][j-1],dp[i-1][j])
         
         return dp[n][m]
     return z(A,B,n,m)
