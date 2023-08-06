@@ -1,6 +1,66 @@
 from functools import *
 
 
+#-- Array
+
+"""
+1. Two Sum (LC number - 1)
+"""
+
+def twoSum(nums, target):
+    d={}
+    n=len(nums)
+    for i in range(n):
+        b=target-nums[i]
+
+        if b in d:
+            return [d[b], i]
+        
+        d[nums[i]]=i
+
+
+
+
+"""
+2. Best Time to Buy and Sell Stock (LC number - 121)
+"""
+
+def maxProfit(prices):
+    A=list(prices)
+    n=len(A)
+    B=[0]*n
+    m=0
+    for i in range(n-1,-1,-1):
+        m=max(m,A[i])
+        B[i]=m
+    
+
+    m=0
+
+    for i in range(n-1):
+        m=max(m,B[i]-A[i])
+
+
+    return m
+
+
+
+
+"""
+3. Contains Duplicate (LC number - 217)
+"""
+
+def containsDuplicate(nums):
+    s=set()
+
+    for i in nums:
+        if i in s:
+            return True
+        s.add(i)
+    
+    return False
+
+
 
 #-- DP
 
