@@ -274,6 +274,24 @@ they are in circle
 """
 
 
+def numDecodings(s):
+        
+    n=len(s)
+    c2 = 1
+    c1 = 1
+    if s[0]=='0':
+        c1=0
+    m=c1
+    for i in range(2,n+1):
+        m=0
+        if 1<=int(s[i-1:i])<=9:
+            m+=c1
+        if 10<=int(s[i-2:i])<=26:
+            m+=c2
+        
+        c2,c1 = c1,m
+
+    return m
 
 
 """
