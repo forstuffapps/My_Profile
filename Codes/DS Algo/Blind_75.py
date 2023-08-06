@@ -62,6 +62,170 @@ def containsDuplicate(nums):
 
 
 
+"""
+4. Product of Array Except Self  (LC number - 238)
+"""
+def productExceptSelf(nums):
+    l=nums
+    n=len(l)
+    p=[1]*(n+2)
+    r=[1]*(n+2)
+    t=1
+    for i in range(n):
+        t*=l[i]
+        p[i+1]=t
+    t=1
+    for i in range(n-1,-1,-1):
+        t*=l[i]
+        r[i+1]=t
+    
+    q=[]
+    for i in range(1,n+1):
+        q.append(p[i-1]*r[i+1])
+    
+    return q
+
+
+# space optimised solution
+def productExceptSelf(nums):
+    n=len(nums)
+    l=nums
+
+    p=1
+    s=1
+    q=[1]*n
+
+    for i in range(n):
+        q[i]*=p
+        p*=l[i]
+
+        q[n-1-i]*=s
+        s*=l[n-1-i]
+    
+    return q
+
+
+
+"""
+5. Maximum Subarray  (LC number - 53)
+This is maximum subarray sum
+"""
+
+def maxSubArray(nums):
+    i,j=0,0
+    n=len(nums)
+    l=nums
+    c=l[0]
+    m=c
+    for i in range(1,n):
+        c=max(l[i], c+l[i])
+        m=max(m,c)
+    return m
+
+
+
+"""
+6. Maximum Product Subarray  (LC number - 152)
+"""
+
+def maxProduct(nums):
+    n=len(nums)
+    l=nums
+    pp,pn,cp,cn, z = l[0], l[0], l[0], l[0], l[0]
+
+    for i in l[1:]:
+        cp = max(pp*i, pn*i, i)
+        cn = min(pp*i, pn*i, i)
+        pp,pn = cp,cn
+        z=max(z,cp,cn)
+    
+    return z
+
+
+
+"""
+7. Find Minimum in Rotated Sorted Array  (LC number - 153)
+"""
+
+
+def findMin(nums):
+    l=nums
+    n=len(l)
+    if n==1:
+        return l[0]
+    lo,hi = 0,n-1
+    z=l[0]
+    while lo<=hi:
+        m=(lo+hi)//2
+
+        if l[0]<=l[m]:
+            lo=m+1
+        elif l[0]>l[m]:
+            z=l[m]
+            hi=m-1
+        
+        
+    return z
+
+
+
+# Another solution
+def findMin(nums):
+    l=nums
+    n=len(l)
+    lo,hi = 0,n-1
+    while lo<hi:
+        m=(lo+hi)//2
+        if l[hi]<l[m]:
+            lo=m+1
+        else: 
+            hi=m
+        
+    return l[lo]
+
+
+
+"""
+7. Search in Rotated Sorted Array  (LC number - 33)
+"""
+
+
+
+def search(nums, target):
+    l=nums
+    k=target
+    n=len(l)
+    
+    lo,hi=0,n-1
+    while lo<hi:
+        m=(lo+hi)//2
+
+        if l[m]<l[hi]:
+            hi=m
+        else:
+            lo=m+1
+    
+    p=lo
+
+    if l[-1]>=k:
+        lo,hi=p,n-1
+    else:
+        lo,hi=0,p-1
+    
+    while lo<=hi:
+        m=(lo+hi)//2
+
+        if l[m]==k:
+            return m
+        elif l[m]<k:
+            lo=m+1
+        else:
+            hi=m-1
+        
+    return -1
+
+
+
 #-- DP
 
 """
