@@ -104,7 +104,7 @@ def lengthOfLIS(nums):
 
 
 """
-3. Longest Common Subsequence  (LC number - 1143)
+4. Longest Common Subsequence  (LC number - 1143)
 """
 
 #  Recursion 
@@ -166,7 +166,7 @@ def longestCommonSubsequence(self, text1: str, text2: str) -> int:
 
 
 """
-4. Word Break Problem  (LC number - 139)
+5. Word Break Problem  (LC number - 139)
 """
 
 def wordBreak( s, wordDict):
@@ -204,7 +204,7 @@ def wordBreak(s, wordDict):
 
 
 """
-5. Combination Sum IV  (LC number - 377)
+6. Combination Sum IV  (LC number - 377)
 """
 
 
@@ -224,7 +224,7 @@ def combinationSum4(nums, target):
 
 
 """
-5. House Robber  (LC number - 198)
+7. House Robber  (LC number - 198)
 """
 
 def rob(nums):
@@ -245,7 +245,7 @@ def rob(nums):
 
 
 """
-5. House Robber 2  (LC number - 213)
+8. House Robber 2  (LC number - 213)
 they are in circle
 """
 def rob(self, nums: List[int]) -> int:
@@ -265,3 +265,56 @@ def rob(self, nums: List[int]) -> int:
             return m
         
         return max(z(nums[0:n-1]), z(nums[1:]))
+
+
+
+"""
+9. Decode Ways  (LC number - 91)
+they are in circle
+"""
+
+
+
+
+"""
+10. Unique Paths  (LC number - 62)
+they are in circle
+"""
+
+
+def uniquePaths(m,n):
+    dp=[[0]*n for i in range(m)]
+    for i in range(m):
+        for j in range(n):
+            if i==0 or j==0:
+                dp[i][j]=1
+    
+
+    for i in range(1,m):
+        for j in range(1,n):
+            dp[i][j]=dp[i-1][j]+dp[i][j-1]
+    
+
+
+    return dp[-1][-1]
+
+
+"""
+11. Jump Game  (LC number - 55)
+they are in circle
+"""
+
+
+def canJump(nums):
+        
+    n=len(nums)
+    
+    m=0
+
+    for i in range(n):
+        if i>m:
+            return False
+        m=max(m,i+nums[i])
+    return True
+
+
