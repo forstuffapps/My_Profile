@@ -472,7 +472,7 @@ def rob(nums):
 8. House Robber 2  (LC number - 213)
 they are in circle
 """
-def rob(self, nums: List[int]) -> int:
+def rob(nums):
         if len(nums)<3:
             return max(nums)
         n=len(nums)
@@ -494,7 +494,6 @@ def rob(self, nums: List[int]) -> int:
 
 """
 9. Decode Ways  (LC number - 91)
-they are in circle
 """
 
 
