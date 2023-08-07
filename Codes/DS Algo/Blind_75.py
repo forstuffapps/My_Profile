@@ -519,7 +519,6 @@ def numDecodings(s):
 
 """
 10. Unique Paths  (LC number - 62)
-they are in circle
 """
 
 
@@ -542,7 +541,6 @@ def uniquePaths(m,n):
 
 """
 11. Jump Game  (LC number - 55)
-they are in circle
 """
 
 
