@@ -1,0 +1,33 @@
+
+
+
+#photos {
+    border: 1px solid #000000;
+    padding: 20px;
+    margin: 20px;
+    background-color: #f5f5f5;
+    text-align: center;
+  }
+
+  #photos h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  #photos img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  #photos p {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+
+
