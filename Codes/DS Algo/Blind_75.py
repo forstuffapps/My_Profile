@@ -282,25 +282,23 @@ def coinChange(coins, amount):
 
 def coinChange(coins, amount):
     @lru_cache(maxsize=None)
-    def z(coins,amount):
-        A=amount
+    def z(coins, amount):
+        A = amount
+        l=coins
+        n=len(l)
+        g=10**9+7
+        m=g
+
         if A<0:
-            return None
+            return g
         if A==0:
             return 0
-        
-        m=10**9+7
-        n=len(coins)
-        for j in range(n):
-            k=z(coins, A-coins[j])
-            if k!=None:
-                m=min(m,k)
-            
-        return None if m==10**9+7 else m+1
-    
-    k=z(tuple(coins), amount)
 
-    return -1 if k==None else k
+        for i in range(n):
+            m=min(m,z(l,A-l[i]))
+        return m+1
+    k=z(tuple(coins), amount)
+    return -1 if k>=10**9+7 else k
 
 
 
