@@ -259,24 +259,20 @@ def climbStairs(n):
 """
 
 def coinChange(coins, amount):
+    l=coins
+    m=len(l)
     n=amount
     g=10**9+7
-    m=len(coins)
-    dp = [0]*(n+1)
+    dp=[g]*(n+1)  # dp=[0]*(n+1) even this was accepted, g is for not possible cases
     dp[0]=0
     for i in range(1,n+1):
         k=g
         for j in range(m):
-            if (i-coins[j])>=0 and dp[i-coins[j]]!=g:
-                k=min(k,dp[i-coins[j]])
-        if k!=g:
-            dp[i]=k+1
-        else:
-            dp[i]=k
+            if (i-l[j])>=0 and dp[i-l[j]]<g:
+                k=min(k,dp[i-l[j]])
+        dp[i]=k+1
     print(dp)
-    if dp[n]==g:
-        return -1
-    return dp[n]
+    return -1 if dp[-1]>=g else dp[-1]
 
 
 
