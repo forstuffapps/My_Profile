@@ -1,0 +1,58 @@
+body
+{
+    background-color: #152355;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight : bold ;
+}
+
+
+
+.box_1
+{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    height : 100vh;
+}
+
+
+
+.login_window
+{
+    text-align: center;
+    background-color: #f5f8fc;
+    padding : 1rem 1rem;
+    border-radius:4%;
+
+}
+
+
+.login_window div
+{
+    padding: 0.5rem 0.5rem;;
+}
+
+
+.login_window  .div_button
+{
+    background-color : #3b83e5;
+    border: none;
+    border-radius :10vb ;
+    text-align: center;
+
+}
+
+button
+{
+    background-color : #3b83e5;
+    border: none;
+    color: #ffffff;
+}
+
+input
+{
+    width : 100%;
+    border: none;
+    border-radius: 5%;
+    padding: 0.5rem;
+}
