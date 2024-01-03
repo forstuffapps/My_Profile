@@ -268,7 +268,7 @@ def coinChange(coins, amount):
     for i in range(1,n+1):
         k=g
         for j in range(m):
-            if (i-l[j])>=0 and dp[i-l[j]]<g:
+            if (i-l[j])>=0 and dp[i-l[j]]<g:  # there is a reason why we wrote <g not !=g cause dp[i] can be g+1 
                 k=min(k,dp[i-l[j]])
         dp[i]=k+1
     print(dp)
