@@ -513,6 +513,8 @@ def numDecodings(s):
 
 """
 10. Unique Paths  (LC number - 62)
+Goal : grid[0][0] -> grid[n-1][m-1]
+actions : either i+1 or j+1 (move either down or right)
 """
 
 
