@@ -1,0 +1,127 @@
+
+
+/*
+
+color_1 : #f5d14f  (Background color)
+color_2 : #11100e
+
+
+
+*/
+
+
+body
+{
+    background-color: #f5d14f;
+    font-family: 'Trebuchet MS', sans-serif;
+}
+
+
+.box_1
+{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    height : 100vh;
+}
+
+
+
+.box_2:hover
+{
+    cursor : pointer;
+    .title
+    {
+        color : #f5d14f;
+    }
+    box-shadow: 15px 15px;
+    transition : 100ms;
+}
+
+
+.box_2
+{
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 5%;
+    margin : 0rem 30rem;
+    padding : 20px;
+    width : 336px;
+    box-shadow: 5px 5px;
+
+}
+
+
+.block_heading
+{
+    background-color: #f5d14f;
+    padding: 6px;
+    font-weight : bold;
+    font-size : 18px;
+    border-radius: 5px;
+    margin-top: 18px;
+    margin-bottom: 0px;
+    display : inline-block;
+}
+
+
+svg
+{
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5%;
+    
+}
+
+
+
+.publish
+{
+    padding : 8px 0px;
+    font-size: 15px;
+}
+
+
+.title
+{
+    font-weight: bold;
+    font-size: 25px ;
+    padding: 8px 0px;
+}
+
+
+.para
+{
+    font-size: 15px;
+    padding : 10px 0px;
+}
+
+
+.author img
+{
+    border-radius: 50%;
+    height: 30px;
+    width : 30px;
+}
+
+.author p
+{
+    font-size: 15px;
+    font-weight : bold;
+}
+
+.author
+{
+    display : flex;
+    justify-content : flex-start;
+    align-items: center;
+    gap : 1rem;
+}
+
+
+
+
+

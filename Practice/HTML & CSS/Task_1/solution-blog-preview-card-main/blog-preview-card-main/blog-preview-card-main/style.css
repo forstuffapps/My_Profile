@@ -1,0 +1,122 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Colors */
+    --yellow: hsl(47, 88%, 63%);
+    
+    /* Neutral Colors */
+    --white: hsl(0, 0%, 100%);
+    --grey: hsl(0, 0%, 50%);
+    --black: hsl(0, 0%, 7%);
+    
+    /* Typography */
+    /* Body Copy */
+    --font-size-body: 16px;
+  
+    /* Font */
+    --font-family: 'Figtree', sans-serif;
+    --font-weight-normal: 600;
+    --font-weight-bold: 800;
+  }
+/* Add your own styles below this line */
+body{
+    background-color: var(--yellow);
+}
+.container{
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-family);
+    font-size: var(--font-size-body);
+    border-radius: 20px;
+    border: #000 solid 1px;
+    flex-direction: column; /* Set the flex direction to column */
+    align-items: center; /* Center the items horizontally */
+    justify-content: center; /* Center the items vertically */
+    width: calc(336px + 40px);
+    box-shadow: 0.5rem 0.5rem 0 black;
+}
+.container:hover{
+    cursor: pointer;
+    .name{
+        color: var(--yellow);
+    }
+    box-shadow: 1rem 1rem 0 #000;
+    transition: 100ms;
+}
+
+svg{
+    margin: 20px 20px 0px 20px;
+    border-radius: 15px;
+}
+
+.category,
+.date,
+.name,
+.description,
+.author {
+    margin: 20px ; /* Add some margin to space out the elements */
+}
+
+.category{
+    background-color: var(--yellow);
+    text-align: center;
+    width: 90px;
+    border-radius: 5px;
+    padding: 5px 10px ;
+    font-weight:var(--font-weight-bold);
+}
+
+
+.description{
+color: var(--grey);
+font-weight: var(--font-weight-normal);
+}
+
+.author{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.author img{
+    width: 10%;
+}
+@media only screen and (max-width: 375px) {
+    body{
+        background-color: var(--yellow);
+    }
+    .container{
+        background-color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: var(--font-family);
+        font-size: var(--font-size-body);
+        border-radius: 20px;
+        border: #000 solid 1px;
+        flex-direction: column; /* Set the flex direction to column */
+        align-items: center; /* Center the items horizontally */
+        justify-content: center; /* Center the items vertically */
+        width: calc(340px);
+        height: 500px;
+        box-shadow: 0.5rem 0.5rem 0 black;
+    }
+    svg{
+       max-width: 300px;
+       border-radius: 10px;
+       margin: 10px 20px 0px 20px;
+    }
+
+    h2{
+        font-size: 20px;
+    }
+}

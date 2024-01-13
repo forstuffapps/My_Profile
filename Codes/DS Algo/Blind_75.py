@@ -256,8 +256,10 @@ def climbStairs(n):
 
 """
 2. Coin Change (LC number - 322)
+lower number of coins required to sum the final amount
 """
 
+# Tabulation
 def coinChange(coins, amount):
     l=coins
     m=len(l)
@@ -275,7 +277,7 @@ def coinChange(coins, amount):
     return -1 if dp[-1]>=g else dp[-1]
 
 
-
+# Recursive
 def coinChange(coins, amount):
     @lru_cache(maxsize=None)
     def z(coins, amount):
@@ -385,6 +387,9 @@ def longestCommonSubsequence(self, text1: str, text2: str) -> int:
 
 """
 5. Word Break Problem  (LC number - 139)
+Input: s = "leetcode", wordDict = ["leet","code"]
+Output: true
+Explanation: Return true because "leetcode" can be segmented as "leet code".
 """
 
 def wordBreak( s, wordDict):
@@ -418,11 +423,40 @@ def wordBreak(s, wordDict):
 
 
 
+# another solution using g 
+def wordBreak(s, wordDict):
+        n=len(s)
+        g=10**9+7
+        dp=[g]*(n+1)
+        dp[0]=0
+        for i in range(1,n+1):
+            for j in range(0,i):
+                if dp[j]<g and s[j:i] in wordDict:
+                    dp[i]=1 + dp[j]
+                    
+        return dp[-1]<g
+
+
+
+
 
 
 
 """
 6. Combination Sum IV  (LC number - 377)
+
+Input: nums = [1,2,3], target = 4
+Output: 7
+Explanation:
+The possible combination ways are:
+(1, 1, 1, 1)
+(1, 1, 2)
+(1, 2, 1)
+(1, 3)
+(2, 1, 1)
+(2, 2)
+(3, 1)
+Note that different sequences are counted as different combinations.
 """
 
 
@@ -443,6 +477,11 @@ def combinationSum4(nums, target):
 
 """
 7. House Robber  (LC number - 198)
+
+Input: nums = [1,2,3,1]
+Output: 4
+Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
+Total amount you can rob = 1 + 3 = 4.
 """
 
 def rob(nums):
@@ -488,6 +527,10 @@ def rob(nums):
 
 """
 9. Decode Ways  (LC number - 91)
+
+Input: s = "226"
+Output: 3
+Explanation: "226" could be decoded as "BZ" (2 26), "VF" (22 6), or "BBF" (2 2 6).
 """
 
 
@@ -537,6 +580,10 @@ def uniquePaths(m,n):
 
 """
 11. Jump Game  (LC number - 55)
+
+Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
 """
 
 
