@@ -259,7 +259,7 @@ def climbStairs(n):
 lower number of coins required to sum the final amount
 """
 
-# Tabulation
+# Tabulation Bottom-Up Approach
 def coinChange(coins, amount):
     l=coins
     m=len(l)
@@ -297,6 +297,27 @@ def coinChange(coins, amount):
         return m+1
     k=z(tuple(coins), amount)
     return -1 if k>=10**9+7 else k
+
+
+# Tabulation : Bottom-Up    =>   Approach But using -1 as defualt value
+def coinChange(coins, amount):
+    l=coins
+    m=len(l)
+    n=amount
+    dp=[-1]*(n+1)
+    dp[0]=0
+    g=10**9+7
+    for i in range(1,n+1):
+        k=g
+        for j in range(m):
+            q=(i-l[j])
+            if q>=0 and dp[q]>=0:
+                k=min(k,dp[q])
+        
+        if k<g:
+            dp[i]=k+1
+    
+    return dp[-1]
 
 
 
