@@ -346,6 +346,9 @@ def lengthOfLIS(nums):
 
 """
 4. Longest Common Subsequence  (LC number - 1143)
+Input: text1 = "abcde", text2 = "ace" 
+Output: 3  
+Explanation: The longest common subsequence is "ace" and its length is 3.
 """
 
 #  Recursion 
