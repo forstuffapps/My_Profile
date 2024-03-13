@@ -257,6 +257,9 @@ def climbStairs(n):
 """
 2. Coin Change (LC number - 322)
 lower number of coins required to sum the final amount
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
 """
 
 # Tabulation Bottom-Up Approach
