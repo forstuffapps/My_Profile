@@ -630,3 +630,157 @@ def canJump(nums):
     return True
 
 
+
+
+
+
+
+
+#-- Trees
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+
+"""
+1. Maximum Depth of Binary Tree
+LC-104
+Given the root of a binary tree, return its maximum depth.
+A binary tree's maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+Input: root = [3,9,20,null,null,15,7]
+Output: 3
+"""
+
+
+def maxDepth(root):
+    def z(h):
+        if h==None:
+            return 0
+        return 1+max(z(h.left) , z(h.right))
+    
+    return z(root)
+
+
+
+"""
+2. Same Tree
+LC-100
+Given the roots of two binary trees p and q, write a function to check if they are the same or not.
+Two binary trees are considered the same if they are structurally identical, and the nodes have the same value.
+Example 1:
+Input: p = [1,2,3], q = [1,2,3]
+Output: true
+"""
+
+
+def isSameTree(p, q):
+    def z(p,q):
+        if p==None and q==None:
+            return True
+        elif p==None and q!=None:
+            return False
+        elif p!=None and q==None:
+            return False
+        
+        return p.val==q.val and z(p.left,q.left) and z(p.right, q.right)
+    
+    return z(p,q)
+
+
+
+
+
+"""
+3. Invert Binary Tree
+LC-226
+Given the root of a binary tree, invert the tree, and return its root.
+Input: root = [4,2,7,1,3,6,9]
+Output: [4,7,2,9,6,3,1]
+"""
+
+def invertTree(root):
+    def z(h):
+        if h==None:
+            return 
+        
+        z(h.left)
+        z(h.right)
+        t = h.left
+        h.left = h.right
+        h.right = t
+        return h
+    
+    return z(root)
+
+
+
+"""
+4. Binary Tree Maximum Path Sum
+LC-124
+A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+The path sum of a path is the sum of the node's values in the path.
+Given the root of a binary tree, return the maximum path sum of any non-empty path.
+Input: root = [1,2,3]
+Output: 6
+Explanation: The optimal path is 2 -> 1 -> 3 with a path sum of 2 + 1 + 3 = 6.
+"""
+
+
+def maxPathSum(root):
+    g = 10**9+7
+    ans = [-g]
+    def z(h, ans):
+        if h==None:
+            return -g
+        k = h.val
+        k_left = z(h.left, ans)
+        k_right = z(h.right, ans)
+        q = max(k, k+k_left, k+k_right, k+k_left+k_right)
+        ans[0] = max(ans[0],q)
+        #print(ans, k)
+        return max(k, k+k_left, k+k_right)
+    
+    z(root, ans)
+
+    return ans[0]
+
+
+"""
+5. Binary Tree Level Order Traversal
+LC-102
+Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[9,20],[15,7]]
+"""
+
+
+def levelOrder(root):
+    d={}
+    def z(h,d, depth):
+        if h==None:
+            return d
+        
+        z(h.left,d, depth+1)
+        try:
+            d[depth].append(h.val)
+        except:
+            d.update({depth : [h.val]})
+        z(h.right, d, depth+1)
+
+        return d
+    d = z(root,d,0)
+    #print(len(d.keys()))
+    n=len(d.keys())
+    l=[]
+    for i in range(n):
+        l.append(d[i])
+    
+    return l
+
+
+
+
