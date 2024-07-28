@@ -784,3 +784,80 @@ def levelOrder(root):
 
 
 
+"""
+7.Subtree of Another Tree
+LC-572
+Given the roots of two binary trees root and subRoot, return true if there is a subtree of root with the same structure and node values of subRoot and false otherwise.
+A subtree of a binary tree tree is a tree that consists of a node in tree and all of this node's descendants. The tree tree could also be considered as a subtree of itself.
+Example 1:
+Input: root = [3,4,5,1,2], subRoot = [4,1,2]
+Output: true
+
+Example 2:
+Input: root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
+Output: false
+"""
+
+def compare(h1,h2):
+    if h1==None and h2==None:
+        return True
+    elif h1!=None and h2!=None and h1.val==h2.val:
+        return True and compare(h1.left,h2.left) and compare(h1.right, h2.right)
+    else:
+        return False
+
+def isSubtree(root, subRoot):
+    def check(r,s):
+        if compare(r,s):
+            return True
+        elif r!=None:
+            return check(r.left,s) or check(r.right,s)
+        
+        return False
+    
+    return check(root,subRoot)
+
+
+
+
+
+
+
+
+"""
+Merge Two Binary Trees
+LC - 617
+You are given two binary trees root1 and root2.
+Imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not. You need to merge the two trees into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of the new tree.
+Return the merged tree.
+Note: The merging process must start from the root nodes of both trees.
+Input: root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]
+Output: [3,4,5,5,4,null,7]
+Example 2:
+
+Input: root1 = [1], root2 = [1,2]
+Output: [2,2]
+"""
+
+
+def mergeTrees(root1, root2):
+    def z(h1,h2):
+        if h1==None and h2==None:
+            return h1,h2
+        elif h1!=None and h2==None:
+            return h1,h2
+            #z(h1.left,h2)
+            #z(h1.right, h2)
+        elif h1==None and h2!=None:
+            h1=TreeNode(h2.val)
+            h1.left, h2.left = z(h1.left, h2.left)
+            h1.right, h2.right = z(h1.right, h2.right)
+            return h1,h2
+        else:
+            h1.val += h2.val
+            h1.left, h2.left = z(h1.left, h2.left)
+            h1.right, h2.right = z(h1.right, h2.right)
+            return h1,h2
+    
+    root1, root2 = z(root1, root2)
+    return root1
