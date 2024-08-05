@@ -88,7 +88,7 @@ def minCostClimbingStairs(cost):
     return c
 
 
-
+############################################################################################
 
 
 #-- Pattern - 2
@@ -141,6 +141,8 @@ Example 1:
 Input: nums = [1,-2,3,-2]
 Output: 3
 Explanation: Subarray [3] has maximum sum 3.
+
+Solution : https://leetcode.com/problems/maximum-sum-circular-subarray/solutions/178422/one-pass
 """
 
 
@@ -160,6 +162,34 @@ def maxSubarraySumCircular(nums):
         return z_max
     return max(z_max, t-z_min)
 
+
+
+
+
+"""
+LeetCode 152: Maximum Product Subarray
+Given an integer array nums, find a 
+subarray
+ that has the largest product, and return the product.
+The test cases are generated so that the answer will fit in a 32-bit integer.
+Example 1:
+Input: nums = [2,3,-2,4]
+Output: 6
+Explanation: [2,3] has the largest product 6.
+"""
+
+
+def maxProduct(nums):
+    z = nums[0]
+    pn,pp,cn,cp = z,z,z,z
+
+    for i in nums[1:]:
+        cp = max(pp*i, pn*i, i)
+        cn = min(pp*i, pn*i, i)
+        z = max(z, cp, cn)
+        pp, pn = cp, cn
+    
+    return z
 
 
 
