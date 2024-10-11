@@ -227,7 +227,7 @@ Explanation: The array cannot be partitioned into equal sum subsets.
 
 
 # Tabulation - Bottom Up Approach   
-def canPartition(self, nums: List[int]) -> bool:
+def canPartition(nums):
     l,n,s = nums, len(nums), sum(nums)
     if s&1:
         return False
@@ -253,6 +253,31 @@ def canPartition(self, nums: List[int]) -> bool:
 
 
 #  Recursion + Memorization : Top-Down
+
+def canPartition(nums):
+    l,n,s = nums, len(nums), sum(nums)
+    if s&1:
+        return False
+    
+    w=s//2
+    dp = [[-1 for i in range(w+1)] for i in range(n+1)]
+    def Knap(l,w,n):
+        if w==0 or n==0:
+            return 0
+        
+        if dp[n][w]!=-1:
+            return dp[n][w]
+        
+        if l[n-1] <= w:
+            dp[n][w] = max(l[n-1]+Knap(l,w-l[n-1],n-1),
+                        Knap(l,w,n-1))
+            return dp[n][w]
+        else:
+            dp[n][w] = Knap(l,w,n-1)
+            return dp[n][w]
+    
+    return w==Knap(l,w,n)
+
 
 
 # Recursion Approach
