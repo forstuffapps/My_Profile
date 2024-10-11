@@ -193,5 +193,73 @@ def maxProduct(nums):
 
 
 
+############################################################################################
+
+
+#-- Pattern - 3
+
+"""
+0/1 Knapsack Algorithm
+
+LeetCode Problems:
+LeetCode 416: Partition Equal Subset Sum
+LeetCode 494: Target Sum
+LeetCode 1049. Last Stone Weight II
+"""
+
+
+
+"""
+LeetCode 416: Partition Equal Subset Sum
+Given an integer array nums, return true if you can partition the array into two subsets such 
+that the sum of the elements in both subsets is equal or false otherwise.
+
+Example 1:
+Input: nums = [1,5,11,5]
+Output: true
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
+Example 2:
+
+Input: nums = [1,2,3,5]
+Output: false
+Explanation: The array cannot be partitioned into equal sum subsets.
+"""
+
+
+# Tabulation - Bottom Up Approach   
+def canPartition(self, nums: List[int]) -> bool:
+    l,n,s = nums, len(nums), sum(nums)
+    if s&1:
+        return False
+    
+    w=s//2
+    dp = [[-1 for i in range(w+1)] for i in range(n+1)]
+    ANS = False
+    for i in range(n+1):
+        for j in range(w+1):
+            if i==0 or j==0:
+                dp[i][j] = 0
+                continue
+            
+            if l[i-1] <= j:
+                dp[i][j] = max( l[i-1] + dp[i-1][j-l[i-1]],
+                                dp[i-1][j])
+            else:
+                dp[i][j] = dp[i-1][j]
+            
+    print(dp)        
+    return dp[-1][-1]==w
+
+
+
+#  Recursion + Memorization : Top-Down
+
+
+# Recursion Approach
+
+
+# Tabulation : Bottom-Up + Memorization
+
+
 
 
