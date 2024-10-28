@@ -414,6 +414,84 @@ def lastStoneWeightII(stones):
         w-=1
     
     return 0
+
+
+
+# Recursion + Memorization with Dictionary stored values
+
+
+
+def lastStoneWeightII(stones):
+    l=stones
+    n=len(l)
+    s=sum(l)
+    w=s//2
+
+    d={}
+    def Knap(w,l,n):
+        if n==0 and w==0:
+            return True
         
+        if n==0 and w!=0:
+            return False
+        t=(n,w)
+        if (n,w) in d:
+            return d[(n,w)]
+        elif w>=l[n-1]:
+            d[(n,w)] = Knap(w-l[n-1],l,n-1) or Knap(w,l,n-1)
+        else:
+            d[(n,w)] = Knap(w,l,n-1)
+        
+        return d[(n,w)]
+    
+    
+
+    while w>=0:
+        if Knap(w,l,n):
+            return s-2*w
+        
+        w-=1
+    
+    return 0
+
+
+
+# Recursion + memorization with dp Array/Table, Top Down
+
+
+def lastStoneWeightII(stones):
+    l=stones
+    n=len(l)
+    s=sum(l)
+    w=s//2
+
+    dp=[[-1 for i in range(w+1)] for i in range(n+1)]
+    
+    def Knap(w,l,n):
+        if n==0 and w==0:
+            return True
+        
+        if n==0 and w!=0:
+            return False
+
+        if dp[n][w]!=-1:
+            return dp[n][w]
+        elif w>=l[n-1]:
+            dp[n][w] = Knap(w-l[n-1],l,n-1) or Knap(w,l,n-1)
+        else:
+            dp[n][w] = Knap(w,l,n-1)
+        
+        return dp[n][w]
+    
+    
+
+    while w>=0:
+        if Knap(w,l,n):
+            return s-2*w
+        
+        w-=1
+    
+    return 0
+
 
 
