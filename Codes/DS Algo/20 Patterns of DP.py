@@ -41,7 +41,8 @@ def climbStairs(n):
 
 """
 LeetCode 509: Fibonacci Number
-The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number is the sum of the two preceding ones, starting from 0 and 1. That is,
+The Fibonacci numbers, commonly denoted F(n) form a sequence, called the Fibonacci sequence, such that each number 
+is the sum of the two preceding ones, starting from 0 and 1. That is,
 F(0) = 0, F(1) = 1
 F(n) = F(n - 1) + F(n - 2), for n > 1.
 Given n, calculate F(n).
@@ -65,7 +66,8 @@ def fib(n):
 
 """
 LeetCode 746. Min Cost Climbing Stairs
-You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.
+You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you 
+can either climb one or two steps.
 You can either start from the step with index 0, or the step with index 1.
 Return the minimum cost to reach the top of the floor.
 Example 1:
@@ -135,8 +137,10 @@ def maxSubArray(nums):
 """
 LeetCode 918: Maximum Sum Circular Subarray
 Given a circular integer array nums of length n, return the maximum possible sum of a non-empty subarray of nums.
-A circular array means the end of the array connects to the beginning of the array. Formally, the next element of nums[i] is nums[(i + 1) % n] and the previous element of nums[i] is nums[(i - 1 + n) % n].
-A subarray may only include each element of the fixed buffer nums at most once. Formally, for a subarray nums[i], nums[i + 1], ..., nums[j], there does not exist i <= k1, k2 <= j with k1 % n == k2 % n.
+A circular array means the end of the array connects to the beginning of the array. Formally, the next element of 
+nums[i] is nums[(i + 1) % n] and the previous element of nums[i] is nums[(i - 1 + n) % n].
+A subarray may only include each element of the fixed buffer nums at most once. Formally, for a subarray nums[i], 
+nums[i + 1], ..., nums[j], there does not exist i <= k1, k2 <= j with k1 % n == k2 % n.
 Example 1:
 Input: nums = [1,-2,3,-2]
 Output: 3
@@ -293,8 +297,10 @@ def canPartition(nums):
 LeetCode 494: Target Sum
 
 You are given an integer array nums and an integer target.
-You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and then concatenate all the integers.
-For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and concatenate them to build the expression "+2-1".
+You want to build an expression out of nums by adding one of the symbols '+' and '-' before each integer in nums and 
+then concatenate all the integers.
+For example, if nums = [2, 1], you can add a '+' before 2 and a '-' before 1 and concatenate them to build the 
+expression "+2-1".
 Return the number of different expressions that you can build, which evaluates to target.
 
 
@@ -367,7 +373,8 @@ def findTargetSumWays(nums, target):
 LeetCode 1049. Last Stone Weight II
 
 You are given an array of integers stones where stones[i] is the weight of the ith stone.
-We are playing a game with the stones. On each turn, we choose any two stones and smash them together. Suppose the stones have weights x and y with x <= y. The result of this smash is:
+We are playing a game with the stones. On each turn, we choose any two stones and smash them together. Suppose the stones 
+have weights x and y with x <= y. The result of this smash is:
 If x == y, both stones are destroyed, and
 If x != y, the stone of weight x is destroyed, and the stone of weight y has new weight y - x.
 At the end of the game, there is at most one stone left.
@@ -493,5 +500,115 @@ def lastStoneWeightII(stones):
     
     return 0
 
+
+
+
+
+############################################################################################
+
+
+#-- Pattern - 4
+
+"""
+Unbounded Knapsack
+
+LeetCode Problems:
+LeetCode 322: Coin Change
+LeetCode 518: Coin Change 2
+LeetCode 279. Perfect Squares
+"""
+
+
+"""
+LeetCode 322: Coin Change
+You are given an integer array coins representing coins of different denominations and an integer amount representing a 
+total amount of money.
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by 
+any combination of the coins, return -1.
+You may assume that you have an infinite number of each kind of coin.
+
+Example 1:
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
+
+Example 2:
+Input: coins = [2], amount = 3
+Output: -1
+
+Example 3:
+Input: coins = [1], amount = 0
+Output: 0
+"""
+
+
+
+# Recursion
+
+def coinChange(coins, amount):
+    l=coins
+    w=amount
+    n=len(l)
+    g=10**9+7
+
+    def Knap(w,l,n):
+        if w==0:
+            return 0
+        if n==0 and w!=0:
+            return g
+        
+        if w>=l[n-1]:
+            return min(1+Knap(w-l[n-1],l,n), Knap(w,l,n-1))
+        else:
+            return Knap(w,l,n-1)
+    
+
+    ans = Knap(w,l,n)
+    if ans>=g:
+        return -1
+    
+    return ans
+        
+
+
+
+# Recursion + Memorization
+
+def coinChange(coins, amount):
+    l=coins
+    w=amount
+    n=len(l)
+    g=10**9+7
+
+    dp = [[-1 for i in range(w+1)] for i in range(n+1)]
+    for i in range(n+1):
+        for j in range(w+1):
+            if j==0:
+                dp[i][j] = 0
+            elif i==0:
+                dp[i][j] = g
+    def Knap(w,l,n):
+        if w==0:
+            return 0
+        if n==0 and w!=0:
+            return g
+        if dp[n][w]!=-1:
+            return dp[n][w]
+
+        if w>=l[n-1]:
+            t = min(1+Knap(w-l[n-1],l,n), Knap(w,l,n-1))
+        else:
+            t = Knap(w,l,n-1)
+        
+        dp[n][w] = t
+        return t
+    
+    ans = Knap(w,l,n)
+    #print(dp)
+    if ans>=g:
+        return -1
+    
+    return ans
+        
 
 
