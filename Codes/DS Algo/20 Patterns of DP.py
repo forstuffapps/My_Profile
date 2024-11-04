@@ -612,3 +612,35 @@ def coinChange(coins, amount):
         
 
 
+
+# tabulation + Bottom-Up
+
+
+
+def coinChange(coins, amount):
+    l=coins
+    w=amount
+    n=len(l)
+    g=10**9+7
+
+    dp = [[-1 for i in range(w+1)] for i in range(n+1)]
+    
+    for i in range(n+1):
+        for j in range(w+1):
+            if j==0:
+                dp[i][j] = 0
+            elif i==0:
+                dp[i][j] = g
+            elif j>=l[i-1]:
+                dp[i][j] = min(1+dp[i][j-l[i-1]], dp[i-1][j])
+            else:
+                dp[i][j] = dp[i-1][j]
+    
+    #print(dp)
+    if dp[-1][-1]>=g:
+        return -1
+    
+    return dp[-1][-1]
+    
+    
+        
