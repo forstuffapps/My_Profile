@@ -653,7 +653,107 @@ def coinChange(coins, amount):
 
 """
 LeetCode 518: Coin Change 2
+
+You are given an integer array coins representing coins of different denominations and an integer amount representing a 
+total amount of money.
+Return the number of combinations that make up that amount. If that amount of money cannot be made up by any combination 
+of the coins, return 0.
+You may assume that you have an infinite number of each kind of coin.
+The answer is guaranteed to fit into a signed 32-bit integer.
+
+ 
+Example 1:
+Input: amount = 5, coins = [1,2,5]
+Output: 4
+Explanation: there are four ways to make up the amount:
+5=5
+5=2+2+1
+5=2+1+1+1
+5=1+1+1+1+1
+
+
+Example 2:
+Input: amount = 3, coins = [2]
+Output: 0
+Explanation: the amount of 3 cannot be made up just with coins of 2.
+
+
+Example 3:
+Input: amount = 10, coins = [10]
+Output: 1
 """
+
+
+# Recursion
+
+def change(amount, coins):
+    w,l,n = amount, coins, len(coins)
+
+    def Knap(w,l,n):
+        if w==0:
+            return 1
+        elif n==0:
+            return 0
+        
+        if w>=l[n-1]:
+            return Knap(w-l[n-1], l, n) + Knap(w,l,n-1)
+        else:
+            return Knap(w,l,n-1)
+    
+    return Knap(w,l,n)
+
+
+
+
+# Recursion + Memo
+
+def change(amount, coins):
+    w,l,n = amount, coins, len(coins)
+    dp = [[-1 for i in range(w+1)] for i in range(n+1)]
+    def Knap(w,l,n):
+        if w==0:
+            return 1
+        elif n==0:
+            return 0
+        if dp[n][w]!=-1:
+            return dp[n][w]
+        
+        if w>=l[n-1]:
+            t = Knap(w-l[n-1], l, n) + Knap(w,l,n-1)
+        else:
+            t = Knap(w,l,n-1)
+        
+        dp[n][w] = t
+        return t
+    
+    return Knap(w,l,n)
+
+
+
+
+
+# Tabulation Bottom Up
+
+
+def change(amount, coins):
+    w,l,n = amount, coins, len(coins)
+    dp = [[-1 for i in range(w+1)] for i in range(n+1)]
+    for i in range(n+1):
+        for j in range(w+1):
+            if j==0:
+                dp[i][j] = 1
+                continue
+            elif i==0:
+                dp[i][j] = 0
+                continue
+    
+            if j>=l[i-1]:
+                dp[i][j] = dp[i][j-l[i-1]] + dp[i-1][j]
+            else:
+                dp[i][j] = dp[i-1][j]
+            
+            
+    return dp[-1][-1]
 
 
 
@@ -686,7 +786,7 @@ Explanation: 13 = 4 + 9.
 # Recursion + Memorization
 
 from math import *
-def numSquares(self, n: int) -> int:
+def numSquares(n):
     w=n
     m=int(sqrt(n))
     g = 10**9+7
@@ -717,7 +817,7 @@ def numSquares(self, n: int) -> int:
 #  Tabulation Bottom Up
 
 from math import *
-def numSquares(self, n: int) -> int:
+def numSquares(n):
     w=n
     m=int(sqrt(n))
     g = 10**9+7
