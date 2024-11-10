@@ -644,3 +644,98 @@ def coinChange(coins, amount):
     
     
         
+
+
+
+
+
+
+
+"""
+LeetCode 518: Coin Change 2
+"""
+
+
+
+
+
+
+
+
+"""
+LeetCode 279. Perfect Squares
+
+Given an integer n, return the least number of perfect square numbers that sum to n.
+A perfect square is an integer that is the square of an integer; in other words, it is the product of some 
+integer with itself. For example, 1, 4, 9, and 16 are perfect squares while 3 and 11 are not.
+
+ 
+
+Example 1:
+Input: n = 12
+Output: 3
+Explanation: 12 = 4 + 4 + 4.
+
+Example 2:
+Input: n = 13
+Output: 2
+Explanation: 13 = 4 + 9.
+"""
+
+
+# Recursion + Memorization
+
+from math import *
+def numSquares(self, n: int) -> int:
+    w=n
+    m=int(sqrt(n))
+    g = 10**9+7
+    dp = [[-1 for i in range(w+1)] for i in range(m+1)]
+    def Knap(w,m):
+        if w==0:
+            return 0
+        elif (m==0 and w!=0) or w<0:
+            return g
+        if dp[m][w]!=-1:
+            return dp[m][w]
+
+        if w>=(m*m):
+            t = min(1+Knap(w-(m*m),m), Knap(w,m-1))
+        else:
+            t = Knap(w,m-1)
+        
+        dp[m][w] = t
+        return t
+
+
+    k=Knap(w,m)
+    print(k)
+    return k
+
+
+
+#  Tabulation Bottom Up
+
+from math import *
+def numSquares(self, n: int) -> int:
+    w=n
+    m=int(sqrt(n))
+    g = 10**9+7
+    dp = [[-1 for i in range(w+1)] for i in range(m+1)]
+    for i in range(m+1):
+        for j in range(w+1):
+            if j==0:
+                dp[i][j] = 0
+            elif i==0:
+                dp[i][j] = g
+
+    for i in range(1,m+1):
+        for j in range(1,w+1):
+
+            if j>=(i*i):
+                dp[i][j] = min(1+dp[i][j-(i*i)], dp[i-1][j])
+            else:
+                dp[i][j] = dp[i-1][j]
+            
+    
+    return dp[-1][-1]
