@@ -839,3 +839,124 @@ def numSquares(n):
             
     
     return dp[-1][-1]
+
+
+
+
+
+
+############################################################################################
+
+
+#-- Pattern - 5
+
+"""
+Longest Common Subsequence
+
+LeetCode Problems:
+LeetCode 1143: Longest Common Subsequence
+LeetCode 583: Delete Operation for Two Strings
+LeetCode 1092: Shortest Common Supersequence
+"""
+
+
+
+"""
+LeetCode 1143: Longest Common Subsequence
+
+Given two strings text1 and text2, return the length of their longest common subsequence. If there is no common subsequence, 
+return 0.
+A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted 
+without changing the relative order of the remaining characters.
+For example, "ace" is a subsequence of "abcde".
+A common subsequence of two strings is a subsequence that is common to both strings.
+
+ 
+
+Example 1:
+Input: text1 = "abcde", text2 = "ace" 
+Output: 3  
+Explanation: The longest common subsequence is "ace" and its length is 3.
+
+Example 2:
+Input: text1 = "abc", text2 = "abc"
+Output: 3
+Explanation: The longest common subsequence is "abc" and its length is 3.
+
+Example 3:
+Input: text1 = "abc", text2 = "def"
+Output: 0
+Explanation: There is no such common subsequence, so the result is 0.
+"""
+
+
+
+# Recursion
+
+
+def longestCommonSubsequence(text1, text2):
+    a,b = text1, text2
+    m,n = len(a), len(b)
+
+    def lcs(a,b,m,n):
+        if m==0 or n==0:
+            return 0
+        
+        if a[m-1]==b[n-1]:
+            return 1+lcs(a,b,m-1,n-1)
+        else:
+            return max(lcs(a,b,m-1,n), lcs(a,b,m,n-1))
+    
+    return lcs(a,b,m,n)
+
+
+
+
+# Recursion + memo
+
+
+def longestCommonSubsequence(text1, text2):
+    a,b = text1, text2
+    m,n = len(a), len(b)
+    dp = [[-1 for i in range(n+1)] for i in range(m+1)]
+    def lcs(a,b,m,n):
+        if m==0 or n==0:
+            return 0
+        if dp[m][n]!=-1:
+            return dp[m][n]
+        
+        if a[m-1]==b[n-1]:
+            t = 1+lcs(a,b,m-1,n-1)
+        else:
+            t = max(lcs(a,b,m-1,n), lcs(a,b,m,n-1))
+        
+        dp[m][n] = t
+        return t
+    
+    return lcs(a,b,m,n)
+
+
+
+
+# Tabulation Bottom Up
+
+
+def longestCommonSubsequence(text1, text2):
+    a,b = text1, text2
+    m,n = len(a), len(b)
+    dp = [[-1 for i in range(n+1)] for i in range(m+1)]
+    for i in range(m+1):
+        for j in range(n+1):
+            if i==0 or j==0:
+                dp[i][j] = 0
+                continue
+            
+            if a[i-1]==b[j-1]:
+                dp[i][j] = 1+dp[i-1][j-1]
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+            
+    
+    return dp[-1][-1]
+
+
