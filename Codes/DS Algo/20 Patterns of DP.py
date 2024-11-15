@@ -960,3 +960,89 @@ def longestCommonSubsequence(text1, text2):
     return dp[-1][-1]
 
 
+
+
+
+"""
+LeetCode 583: Delete Operation for Two Strings
+Given two strings word1 and word2, return the minimum number of steps required to make word1 and word2 the same.
+In one step, you can delete exactly one character in either string.
+
+
+Example 1:
+Input: word1 = "sea", word2 = "eat"
+Output: 2
+Explanation: You need one step to make "sea" to "ea" and another step to make "eat" to "ea".
+
+Example 2:
+Input: word1 = "leetcode", word2 = "etco"
+Output: 4
+"""
+
+
+
+# Recursion
+
+def minDistance(word1, word2):
+    a,b = word1, word2
+    m,n = len(a), len(b)
+
+    def Knap(a,b,m,n):
+        if m==0 or n==0:
+            return m+n
+        
+        if a[m-1]==b[n-1]:
+            return Knap(a,b,m-1,n-1)
+        else:
+            return 1+ min(Knap(a,b,m-1,n), Knap(a,b,m,n-1))
+    
+    return Knap(a,b,m,n)
+
+
+
+
+# Recursion + Memorization
+
+def minDistance(word1, word2):
+    a,b = word1, word2
+    m,n = len(a), len(b)
+    dp = [[-1 for i in range(n+1)] for i in range(m+1)]
+
+    def Knap(a,b,m,n):
+        if m==0 or n==0:
+            return m+n
+        if dp[m][n]!=-1:
+            return dp[m][n]
+
+        if a[m-1]==b[n-1]:
+            t = Knap(a,b,m-1,n-1)
+        else:
+            t = 1+ min(Knap(a,b,m-1,n), Knap(a,b,m,n-1))
+        
+        dp[m][n] = t
+        return t
+    
+    return Knap(a,b,m,n)
+
+
+
+# Tabulation Bottom Up
+
+def minDistance(word1, word2):
+    a,b = word1, word2
+    m,n = len(a), len(b)
+    dp = [[-1 for i in range(n+1)] for i in range(m+1)]
+
+    for i in range(m+1):
+        for j in range(n+1):
+            if i==0 or j==0:
+                dp[i][j] = i+j
+                continue
+
+            if a[i-1]==b[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = 1+ min(dp[i-1][j], dp[i][j-1])
+            
+    
+    return dp[-1][-1]
