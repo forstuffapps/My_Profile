@@ -1046,3 +1046,26 @@ def minDistance(word1, word2):
             
     
     return dp[-1][-1]
+
+
+
+#   Solution - 2 for the above problem is Find LCS and return m+n-2*LCS
+# A small example of the Solution is as follows
+
+def minDistance(word1, word2):
+    a,b = word1, word2
+    m,n = len(a), len(b)
+    dp = [[-1 for i in range(n+1)] for i in range(m+1)]
+    for i in range(m+1):
+        for j in range(n+1):
+            if i==0 or j==0:
+                dp[i][j] = 0
+                continue
+            
+            if a[i-1]==b[j-1]:
+                dp[i][j] = 1+dp[i-1][j-1]
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+            
+    
+    return m+n-2*dp[-1][-1]     # Please check this last line which calculates the main logic of the answer
