@@ -1143,3 +1143,64 @@ def shortestCommonSupersequence(str1, str2):
     
 
     return z
+
+
+
+
+
+############################################################################################
+
+
+#-- Pattern - 6
+
+"""
+6. Longest Increasing Subsequence (LIS)
+
+LeetCode Problems:
+LeetCode 300: Longest Increasing Subsequence
+LeetCode 673: Number of Longest Increasing Subsequence
+leetCode 354: Russian Doll Envelopes
+"""
+
+
+
+
+"""
+LeetCode 300: Longest Increasing Subsequence
+
+Given an integer array nums, return the length of the longest strictly increasing 
+subsequence.
+
+Example 1:
+Input: nums = [10,9,2,5,3,7,101,18]
+Output: 4
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
+
+Example 2:
+Input: nums = [0,1,0,3,2,3]
+Output: 4
+
+Example 3:
+Input: nums = [7,7,7,7,7,7,7]
+Output: 1
+"""
+
+
+
+# Tabulation Bottom Up --- Optimized Solution
+
+def lengthOfLIS(nums):
+    l=nums
+    n=len(l)
+    dp=[1]*n
+
+    for i in range(1,n):
+        for j in range(i):
+            if l[j]<l[i]:
+                dp[i] = max(dp[i],1+dp[j])
+    
+    return max(dp)
+
+
+
+
