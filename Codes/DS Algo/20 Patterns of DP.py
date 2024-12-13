@@ -1249,3 +1249,55 @@ def findNumberOfLIS(nums):
             z+=cnt[i]
     
     return z
+
+
+
+
+
+
+"""
+leetCode 354: Russian Doll Envelopes
+
+You are given a 2D array of integers envelopes where envelopes[i] = [wi, hi] represents the width and the height of an envelope.
+One envelope can fit into another if and only if both the width and height of one envelope are greater than the other 
+envelope's width and height. Return the maximum number of envelopes you can Russian doll (i.e., put one inside the other).
+Note: You cannot rotate an envelope.
+
+
+Example 1:
+Input: envelopes = [[5,4],[6,4],[6,7],[2,3]]
+Output: 3
+Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+
+Example 2:
+Input: envelopes = [[1,1],[1,1],[1,1]]
+Output: 1
+"""
+
+
+# DP with Binary Search
+
+class Solution:
+    def lis_nlogn(l,val):
+        n=len(l)
+        lo,hi = 0,n-1
+        while lo<hi:
+            mid = lo+ (hi-lo)//2
+            if l[mid]<val:
+                lo=mid+1
+            else:
+                hi = mid
+        l[hi] = val
+        return l
+    def maxEnvelopes(self, envelopes: List[List[int]]) -> int:
+        l= envelopes
+        n=len(l)
+        l.sort(key=lambda x: (x[0], -x[1]))
+        lis = [l[0][1]]
+        for i in range(1,n):
+            if l[i][1]>lis[-1]:
+                lis.append(l[i][1])
+            else:
+                Solution.lis_nlogn(lis,l[i][1])
+            
+        return len(lis)
