@@ -1301,3 +1301,104 @@ class Solution:
                 Solution.lis_nlogn(lis,l[i][1])
             
         return len(lis)
+    
+
+
+
+
+
+
+############################################################################################
+
+
+#-- Pattern - 7
+
+"""
+7. Palindromic Subsequence
+
+LeetCode Problems:
+LeetCode 516: Longest Palindromic Subsequence
+LeetCode 647: Palindromic Substrings
+LeetCode 1312: Minimum Insertion Steps to Make a String Palindrome
+"""
+
+
+
+
+
+
+
+"""
+LeetCode 516: Longest Palindromic Subsequence
+
+Given a string s, find the longest palindromic subsequence's length in s.
+A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without 
+changing the order of the remaining elements.
+
+Example 1:
+Input: s = "bbbab"
+Output: 4
+Explanation: One possible longest palindromic subsequence is "bbbb".
+
+Example 2:
+Input: s = "cbbd"
+Output: 2
+Explanation: One possible longest palindromic subsequence is "bb".
+"""
+
+
+
+
+#  Recursive Solution
+
+
+
+def longestPalindromeSubseq(s):
+    n= len(s)
+    lo, hi = 0,n-1
+    def z(s,lo,hi):
+
+        if lo==hi:
+            return 1
+        elif (lo+1)==hi and s[lo]==s[hi]:
+            return 2
+        elif s[lo]!=s[hi]:
+            return max(z(s,lo+1, hi), z(s,lo,hi-1))
+        elif s[lo]==s[hi]:
+            return 2+z(s,lo+1,hi-1)
+    
+    return z(s,lo,hi)
+
+
+
+
+
+
+
+
+#  Recursive + Memo
+
+def longestPalindromeSubseq(s):
+    n= len(s)
+    lo, hi = 0,n-1
+    dp = [[0 for i in range(n+1)] for i in range(n+1)]
+    def z(s,lo,hi):
+
+        if lo==hi:
+            return 1
+        elif (lo+1)==hi and s[lo]==s[hi]:
+            return 2
+        elif dp[lo][hi]!=0:
+            return dp[lo][hi]
+        elif s[lo]!=s[hi]:
+            t = max(z(s,lo+1, hi), z(s,lo,hi-1))
+        elif s[lo]==s[hi]:
+            t = 2+z(s,lo+1,hi-1)
+        
+        dp[lo][hi] = t
+        return t
+    
+    return z(s,lo,hi)
+        
+
+
