@@ -1402,3 +1402,29 @@ def longestPalindromeSubseq(s):
         
 
 
+
+#  Tabulation + Bottom-Up
+
+
+def longestPalindromeSubseq(s):
+    n= len(s)
+    lo, hi = 0,n-1
+    dp = [[0 for i in range(n+1)] for i in range(n+1)]
+    for i in range(0,n):
+        dp[i][i] = 1
+    
+    for i in range(n-2,-1,-1):
+        for j in range(i+1, n):
+
+            if (i+1)==j and s[i]==s[j]:
+                t = 2
+            elif s[i]!=s[j]:
+                t = max(dp[i+1][j], dp[i][j-1])
+            elif s[i]==s[j]:
+                t = 2+dp[i+1][j-1]
+            
+            dp[i][j] = t
+            
+    
+    return dp[0][n-1]
+        
