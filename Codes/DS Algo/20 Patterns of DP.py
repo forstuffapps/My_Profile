@@ -1456,7 +1456,7 @@ Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 # Math Logic Solution
 
 class Solution:
-    def countSubstrings(self, s: str) -> int:
+    def countSubstrings(s):
         n = len(s)
         cnt = 0
         bag = set()
@@ -1482,8 +1482,27 @@ class Solution:
         return cnt
         
                 
-        
-        
+
+
+# Tabulation, DP approach
+
+def countSubstrings(s):
+    n = len(s)
+    cnt = 0
+    dp = [[False for _ in range(n)] for _ in range(n)]
+    
+    for length in range(1, n+1):
+        for i in range(n-length+1):
+            if s[i]==s[i+length-1] and (length<=2 or dp[i+1][i+length-2]):
+                dp[i][i+length-1] = True
+                cnt+=1
+    
+    return cnt
+
+
+
+
+# Solution Links : https://leetcode.com/problems/palindromic-substrings/solutions/4703811/interview-approach-3-approach-brute-force-expand-middle-dp
         
         
         
