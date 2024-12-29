@@ -1594,3 +1594,122 @@ def minInsertions(s):
     
     return dp[0][n-1]
             
+
+
+
+
+
+
+
+############################################################################################
+
+
+#-- Pattern - 8
+
+"""
+8. Edit Distance
+
+LeetCode 72: Edit Distance
+LeetCode 583: Delete Operation for Two Strings
+LeetCode 712: Minimum ASCII Delete Sum for Two Strings
+"""
+
+
+
+"""
+LeetCode 72: Edit Distance
+Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
+You have the following three operations permitted on a word:
+Insert a character
+Delete a character
+Replace a character
+
+Example 1:
+Input: word1 = "horse", word2 = "ros"
+Output: 3
+Explanation: 
+horse -> rorse (replace 'h' with 'r')
+rorse -> rose (remove 'r')
+rose -> ros (remove 'e')
+
+Example 2:
+Input: word1 = "intention", word2 = "execution"
+Output: 5
+Explanation: 
+intention -> inention (remove 't')
+inention -> enention (replace 'i' with 'e')
+enention -> exention (replace 'n' with 'x')
+exention -> exection (replace 'n' with 'c')
+exection -> execution (insert 'u')
+"""
+
+
+
+# Recursion
+def minDistance(word1, word2):
+    s1, s2, m, n = word1, word2, len(word1), len(word2)
+
+    def z(s1,s2,m,n):
+        if m==0 or n==0:
+            return m+n
+        elif s1[m-1]==s2[n-1]:
+            return z(s1,s2,m-1,n-1)
+        else:
+            return 1+min(z(s1,s2,m-1,n), z(s1,s2,m,n-1), z(s1,s2,m-1,n-1))
+    
+
+    return z(s1,s2,m,n)
+
+
+
+
+# Recur + Memo
+
+def minDistance(word1, word2):
+    s1, s2, m, n = word1, word2, len(word1), len(word2)
+    dp = [[-1 for _ in range(n+1)] for _ in range(m+1)]
+    
+    for i in range(m+1):
+        for j in range(n+1):
+            if i==0 or j==0:
+                dp[i][j] = i+j
+    
+
+    def z(s1,s2,m,n):
+        if m==0 or n==0:
+            return m+n
+
+        if dp[m][n]!=-1:
+            return dp[m][n]
+        if s1[m-1]==s2[n-1]:
+            t = z(s1,s2,m-1,n-1)
+        else:
+            t = 1+min(z(s1,s2,m-1,n), z(s1,s2,m,n-1), z(s1,s2,m-1,n-1))
+        
+        dp[m][n] = t
+        return t
+    
+    return z(s1,s2,m,n)
+        
+
+
+
+
+# Tabulation Bottom Up
+
+def minDistance(word1, word2):
+    s1, s2, m, n = word1, word2, len(word1), len(word2)
+    dp = [[-1 for _ in range(n+1)] for _ in range(m+1)]
+    
+    for i in range(m+1):
+        for j in range(n+1):
+            if i==0 or j==0:
+                dp[i][j] = i+j
+            elif s1[i-1]==s2[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = 1+min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])
+    
+    return dp[-1][-1]
+        
+
