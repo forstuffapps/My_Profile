@@ -1713,3 +1713,131 @@ def minDistance(word1, word2):
     return dp[-1][-1]
         
 
+
+
+"""
+LeetCode 583: Delete Operation for Two Strings
+Given two strings word1 and word2, return the minimum number of steps required to make word1 and word2 the same.
+In one step, you can delete exactly one character in either string.
+
+Example 1:
+Input: word1 = "sea", word2 = "eat"
+Output: 2
+Explanation: You need one step to make "sea" to "ea" and another step to make "eat" to "ea".
+
+Example 2:
+Input: word1 = "leetcode", word2 = "etco"
+Output: 4
+"""
+
+
+
+
+# Already completed this problem for the Knapsack pattern
+
+
+
+
+
+"""
+LeetCode 712: Minimum ASCII Delete Sum for Two Strings
+Given two strings s1 and s2, return the lowest ASCII sum of deleted characters to make two strings equal.
+
+Example 1:
+Input: s1 = "sea", s2 = "eat"
+Output: 231
+Explanation: Deleting "s" from "sea" adds the ASCII value of "s" (115) to the sum.
+Deleting "t" from "eat" adds 116 to the sum.
+At the end, both strings are equal, and 115 + 116 = 231 is the minimum sum possible to achieve this.
+
+Example 2:
+Input: s1 = "delete", s2 = "leet"
+Output: 403
+Explanation: Deleting "dee" from "delete" to turn the string into "let",
+adds 100[d] + 101[e] + 101[e] to the sum.
+Deleting "e" from "leet" adds 101[e] to the sum.
+At the end, both strings are equal to "let", and the answer is 100+101+101+101 = 403.
+If instead we turned both strings into "lee" or "eet", we would get answers of 433 or 417, which are higher.
+"""
+
+
+
+# Recursion
+
+def minimumDeleteSum(s1, s2):
+    m,n = len(s1), len(s2)
+
+    def z(s1,s2,m,n):
+        if m==0:
+            return sum([ord(i) for i in s2[:n]])
+        elif n==0:
+            return sum([ord(i) for i in s1[:m]])
+        
+        if s1[m-1]==s2[n-1]:
+            return z(s1,s2,m-1,n-1)
+        else:
+            return min(ord(s1[m-1])+z(s1,s2,m-1,n), ord(s2[n-1])+z(s1,s2,m,n-1))
+    
+    return z(s1,s2,m,n)
+
+
+
+
+# Recur + Memorization
+
+def minimumDeleteSum(s1, s2):
+    m,n = len(s1), len(s2)
+    dp = [[-1 for _ in range(n+1)] for _ in range(m+1)]
+    def z(s1,s2,m,n):
+        if m==0:
+            return sum([ord(i) for i in s2[:n]])
+        elif n==0:
+            return sum([ord(i) for i in s1[:m]])
+        if dp[m][n]!=-1:
+            return dp[m][n]
+        if s1[m-1]==s2[n-1]:
+            t = z(s1,s2,m-1,n-1)
+        else:
+            t = min(ord(s1[m-1])+z(s1,s2,m-1,n), ord(s2[n-1])+z(s1,s2,m,n-1))
+        
+        dp[m][n] = t
+        return t
+    
+    return z(s1,s2,m,n)
+
+
+
+
+# Tabulation Bottom Up
+
+def minimumDeleteSum(s1, s2):
+    m,n = len(s1), len(s2)
+    dp = [[-1 for _ in range(n+1)] for _ in range(m+1)]
+    for i in range(m+1):
+        for j in range(n+1):
+
+            if i==0:
+                dp[i][j] = sum([ord(k) for k in s2[:j]])
+            elif j==0:
+                dp[i][j] = sum([ord(k) for k in s1[:i]])
+            elif s1[i-1]==s2[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+            else:
+                dp[i][j] = min(ord(s1[i-1])+dp[i-1][j], ord(s2[j-1])+dp[i][j-1])
+            
+            
+    
+    return dp[-1][-1]
+
+
+
+
+
+
+
+
+
+
+
+
+
